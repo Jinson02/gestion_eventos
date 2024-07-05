@@ -4,7 +4,6 @@ from .views import (
     MisEventosView, InscribirEventoView, CustomLogoutView
 )
 
-
 urlpatterns = [
     path('', ListaEventosView.as_view(), name='lista_eventos'),
     path('registro/', RegistroUsuarioView.as_view(), name='registro'),

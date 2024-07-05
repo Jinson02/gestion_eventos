@@ -132,3 +132,4 @@ AUTH_USER_MODEL = 'eventos.Usuario'
 
 LOGIN_REDIRECT_URL = 'lista_eventos'
 LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'

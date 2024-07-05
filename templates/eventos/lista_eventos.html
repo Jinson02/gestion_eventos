@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block titulo %}Lista de eventos{% endblock %}
 {% block contenido %}
-<h2 >Listado de eventos</h2>
+<h2>Listado de eventos</h2>
     <table class="table table-striped datatable">
         <thead>
             <tr>
@@ -27,7 +27,7 @@
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="7">No hay eventos disponibles</td>
+                    <td colspan="7">No hay eventos disponibles.</td>
                 </tr>
             {% endfor %}
         </tbody>

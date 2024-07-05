@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block titulo %} Inicio de Sesión S.G.E.{% endblock %}
+{% block titulo %} Inicio de Sesión Sistema de Gestión Eventos{% endblock %}
 
 {% block contenido %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card-mt-5">
+        <div class="card mt-5">
             <div class="card-body">
                 <h2 class="card-title -text-center mb-4">Iniciar Sesión</h2>
                 <form method="post">
@@ -21,7 +21,7 @@
                         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
                     </div>
                 </form>
-                <p class="mt-3 text-center">¿No tienes una cuenta?<a href="{% url 'registro' %}">Registrate aquí</a> </p>
+                <p class="mt-3 text-center">¿No tienes una cuenta?<a href="{% url 'registro' %}">Regístrate aquí</a> </p>
             </div>
         </div>
     </div>
@@ -32,12 +32,10 @@
 <script>
     {% if form.errors %}
         Swal.fire({
-          title: 'Error al iniciar sesión',
-          text: 'Usuario o contraseña incorrecta, intentelo nuevamente',  
-          icon: 'error'  
+          title: "Error de inicio de sesión",
+          text: "Usuario o contraseña incorrecta, ingrese nuevamente",
+          icon: "error"
         });
     {% endif %}
-    	
-    {% endif %} 
-</script>    
+</script>
 {% endblock %}

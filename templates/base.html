@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block titulo %} Sistema de Gestión de Eventos {% endblock %}</title>
-    <!--Bootstrap 5.3-->
+    <title>{% block titulo %} Sistema de Gestión Eventos {% endblock %}</title>
+    <!-- Bootstrap 5.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!--DataTables-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+
+        <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     {% block css_extras %}{% endblock %}
 
 </head>
@@ -14,12 +15,12 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'lista_eventos' %}">Sistema de Gestión de Eventos</a><!--hacer enlace a lista de eventos-->
+        <a class="navbar-brand" href="{% url 'lista_eventos' %}">Bienvenido, {{ user.last_name }} {{ user.first_name }}</a> <!-- hacer enlace a lista de eventos -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
         </button>
-        <!--hacer lista de opciones segun validación del usuario-->
-        <div class="collapse navbar-collapse" id="navbar">
+        <!-- hacer lista de opciones según validación del usuario -->
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
@@ -31,12 +32,15 @@
                     {% if user.rol == 'admin' %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'crear_eventos' %}">Crear Eventos</a>
-                    </li>
-                     {% endif %}   
+                        </li>
+                     {% endif %}
+                     <li class="nav-item">
+                         <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
-                        
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
@@ -48,21 +52,34 @@
 </nav>
 <div class="container mt-4">
 {% block contenido %}
-    
-    
+
+
 {% endblock %}
 </div>
 
 
-<!--Bootstrap 5.3 Bundle JS-->
+<!-- Bootstrap 5.3 Bundle JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<!--SweetAlert v11.12.1-->
+<!-- Sweetalert2 v11.12.1  -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!--DataTables-->
-<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<!-- jQuery (necesario para DataTables) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
 
+<script>
+    $(document).ready(function() {
+        $('.datatable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json'
+            }
+        });
+    });
+</script>
 {% block js_extras %}
-    
+
+
 {% endblock %}
 
 </body>

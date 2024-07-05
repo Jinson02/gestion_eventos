@@ -11,17 +11,17 @@
             <li class="list-group-item"><strong>Cupos:</strong>{{ evento.cupos }}</li>
             <li class="list-group-item"><strong>Estado:</strong>{% if evento.estado %}Activo{% else %}Inactivo{% endif %}</li>
         </ul>
-    
+
         {% if user.rol == 'normal' and evento.estado %}
             {% if user in evento.inscritos.all %}
-                <p class="mt-3 text-success">Ya se encuentra inscrito en este evento.</p>
+                <p class="mt-3 text-success">Ya estás inscrito en este evento.</p>
             {% else %}
-                <a href="{% url 'inscribir_evento' evento.pk %}" class="btn btn-primary mt-3">Inscribirse</a>    
+                <a href="{% url 'inscribir_evento' evento.pk %}" class="btn btn-primary mt-3">Inscribirse</a>
             {% endif %}
         {% endif %}
-    
+
         {% if user.rol == 'admin' %}
-            <h3 class="mt-4">Listado de usuarios inscritos en el evento</h3>
+            <h3 class="mt-4>">Listado de usuarios inscritos en el evento</h3>
             <table class="table table-striped datatable">
                 <thead>
                     <tr>
@@ -39,13 +39,13 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="3">No hay usuarios registrados en este evento.</td>
+                            <td colspan="3"> No hay usuarios registrados en este evento.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         {% endif %}
-    
+
     </div>
 </div>
 {% endblock %}
