@@ -12,6 +12,6 @@ urlpatterns = [
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('evento/<int:pk>/', DetalleEventoView.as_view(), name='detalle_evento'),
     path('evento/<int:pk>/inscribir/', InscribirEventoView.as_view(), name='inscribir_evento'),
-    path('evento/crear/', CrearEventoView.as_view(), name='crear'),
+    path('evento/crear/', CrearEventoView.as_view(), name='crear_eventos'),
     path('mis-eventos/', MisEventosView.as_view(), name='mis_eventos'),
 ]
