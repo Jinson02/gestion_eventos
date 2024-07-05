@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario
+from .models import Usuario, Evento
+
 
 class BootstrapFormFormMixin:
     def __init__(self, *args, **kwargs):
@@ -29,3 +30,13 @@ class RegistroUsuarioForm(UserCreationForm):
         self.fields['username'].label = 'Nombre de usuario'
         self.fields['password1'].label = 'Contraseña'
         self.fields['password2'].label = 'Confirmar contraseña'
+
+class EventoForm(BootstrapFormFormMixin, forms.ModelForm):
+    class Meta:
+        model = Evento
+        fields = ['nombre', 'descripcion', 'fecha_inicio', 'fecha_fin', 'cupos', 'estado']
+
+        widgets = {
+            'fecha_inicio': forms.DateInput(attrs={'type': 'date'}),
+            'fecha_fin': forms.DateInput(attrs={'type': 'date'}),
+        }
