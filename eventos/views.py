@@ -70,6 +70,10 @@ class MisEventosView(LoginRequiredMixin, ListView):
 class CustomLoginView(LoginView):
     template_name = 'registro/login.html'
 
+    def form_valid(self, form):
+        messages.success(self.request, 'Sesión iniciada correctamente')
+        return super().form_valid(form)
+
     def form_invalid(self, form):
         messages.error(self.request, 'Usuario o contraseña incorrectos. Por favor, ingrese nuevamente.')
         return super().form_invalid(form)
