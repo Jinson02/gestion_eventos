@@ -8,6 +8,7 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Fecha Inicio:</strong>{{ evento.fecha_inicio }}</li>
             <li class="list-group-item"><strong>Fecha Fin:</strong>{{ evento.fecha_fin }}</li>
+            <li class="list-group-item"><strong>Ubicacion:</strong> {{ evento.ubicacion }}</li> <!-- Agregado -->
             <li class="list-group-item"><strong>Cupos:</strong>{{ evento.cupos }}</li>
             <li class="list-group-item"><strong>Estado:</strong>{% if evento.estado %}Activo{% else %}Inactivo{% endif %}</li>
         </ul>
