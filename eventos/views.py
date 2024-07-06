@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, DetailView
@@ -102,3 +102,12 @@ class RegistroUsuarioView(CreateView):
             for error in errors:
                 messages.error(self.request, f"{field}: {error}")
         return super().form_invalid(form)
+
+class EliminarEventoView(View):
+    def post(self, request, pk, *args, **kwargs):
+        evento = get_object_or_404(Evento, pk=pk)
+        if request.user.rol == 'admin':
+            evento.delete()
+            messages.success(request, 'El evento ha sido eliminado exitosamente.')
+            return redirect('lista_eventos')
+        return redirect('detalle_evento', pk=pk)

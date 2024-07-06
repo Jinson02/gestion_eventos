@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     RegistroUsuarioView, CustomLoginView, ListaEventosView, DetalleEventoView, CrearEventoView,
-    MisEventosView, InscribirEventoView, CustomLogoutView
+    MisEventosView, InscribirEventoView, CustomLogoutView, EliminarEventoView
 )
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('evento/<int:pk>/', DetalleEventoView.as_view(), name='detalle_evento'),
+    path('evento/eliminar/<int:pk>/', EliminarEventoView.as_view(), name='eliminar_evento'),
     path('evento/<int:pk>/inscribir/', InscribirEventoView.as_view(), name='inscribir_evento'),
     path('evento/crear/', CrearEventoView.as_view(), name='crear_eventos'),
     path('mis-eventos/', MisEventosView.as_view(), name='mis_eventos'),
