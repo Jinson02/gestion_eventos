@@ -14,10 +14,10 @@ class Usuario(AbstractUser):
 
 class Evento(models.Model):
     nombre = models.CharField(max_length=150)
-    descripcion = models.TextField()
-    fecha_inicio = models.DateField()
+    descripción = models.TextField()
+    fecha_de_inicio = models.DateField()
     fecha_fin = models.DateField()
-    ubicacion = models.CharField(max_length=255)
+    ubicación = models.CharField(max_length=255)
     cupos = models.PositiveIntegerField()
     estado = models.BooleanField(default=True)
     inscritos = models.ManyToManyField(Usuario, related_name='eventos_inscritos', blank=True)

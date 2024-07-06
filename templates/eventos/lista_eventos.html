@@ -7,7 +7,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Descripción</th>
-                <th>Fecha Inicio</th>
+                <th>Fecha de Inicio</th>
                 <th>Fecha Fin</th>
                 <th>Ubicación</th>
                 <th>Cupos</th>
@@ -19,10 +19,10 @@
             {% for evento in eventos %}
                 <tr>
                     <td>{{ evento.nombre }}</td>
-                    <td>{{ evento.descripcion }}</td>
-                    <td>{{ evento.fecha_inicio }}</td>
+                    <td>{{ evento.descripción }}</td>
+                    <td>{{ evento.fecha_de_inicio }}</td>
                     <td>{{ evento.fecha_fin }}</td>
-                    <td>{{ evento.ubicacion }}</td>
+                    <td>{{ evento.ubicación }}</td>
                     <td>{{ evento.cupos }}</td>
                     <td>{% if evento.estado %}Activo{% else %}Inactivo{% endif %}</td>
                     <td><a href="{% url 'detalle_evento' evento.pk %}" class="btn btn-primary btn-sm">Ver detalles</a> </td>
