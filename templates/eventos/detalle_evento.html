@@ -1,56 +1,90 @@
+<!-- detalle_evento.html -->
 {% extends 'base.html' %}
 {% block titulo %}{{ evento.nombre }}{% endblock %}
 {% block contenido %}
 <div class="card">
     <div class="card-body">
         <h2 class="card-title">{{ evento.nombre }}</h2>
-        <p class="card-text">{{ evento.descripción }}</p>
+        <p class="card-text">{{ evento.descripcion }}</p>
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Fecha de Inicio:</strong>{{ evento.fecha_de_inicio }}</li>
             <li class="list-group-item"><strong>Fecha Fin:</strong>{{ evento.fecha_fin }}</li>
-            <li class="list-group-item"><strong>Ubicación:</strong> {{ evento.ubicación }}</li> <!-- Agregado -->
-            <li class="list-group-item"><strong>Creado por:</strong> {{ evento.creador.get_full_name }}</li> <!-- Mostrar el creador del evento -->
+            <li class="list-group-item"><strong>Ubicación:</strong> {{ evento.ubicación }}</li>
+            <li class="list-group-item"><strong>Creado por:</strong> {{ evento.creador.get_full_name }}</li>
             <li class="list-group-item"><strong>Cupos:</strong>{{ evento.cupos }}</li>
             <li class="list-group-item"><strong>Estado:</strong>{% if evento.estado %}Activo{% else %}Inactivo{% endif %}</li>
         </ul>
 
-        {% if user.rol == 'normal' and evento.estado %}
-            {% if user in evento.inscritos.all %}
-                <p class="mt-3 text-success">Ya estás inscrito en este evento.</p>
-            {% else %}
-                <a href="{% url 'inscribir_evento' evento.pk %}" class="btn btn-primary mt-3">Inscribirse</a>
-            {% endif %}
-        {% endif %}
+        {% if user.is_authenticated %}
+            {% if user.rol == 'normal' %}
+                <h3 class="mt-4">Listado de usuarios inscritos en el evento</h3>
+                <table class="table table-striped datatable">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in evento.inscritos.all %}
+                            <tr>
+                                <td>{{ usuario.first_name }}</td>
+                                <td>{{ usuario.last_name }}</td>
+                                <td>{{ usuario.email }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3"> No hay usuarios registrados en este evento.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
-        {% if user.rol == 'admin' %}
-            <h3 class="mt-4>">Listado de usuarios inscritos en el evento</h3>
-            <table class="table table-striped datatable">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for usuario in evento.inscritos.all %}
+                {% if user not in evento.inscritos.all %}
+                    <form action="{% url 'inscribir_evento' evento.pk %}" method="post" class="mt-3">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Inscribirse</button>
+                    </form>
+                {% else %}
+                    <p class="mt-3 text-success">Ya estás inscrito en este evento.</p>
+                {% endif %}
+            {% endif %}
+
+            {% if user.rol == 'admin' %}
+                <h3 class="mt-4">Listado de usuarios inscritos en el evento</h3>
+                <table class="table table-striped datatable">
+                    <thead>
                         <tr>
-                            <td>{{ usuario.first_name }}</td>
-                            <td>{{ usuario.last_name }}</td>
-                            <td>{{ usuario.email }}</td>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
                         </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="3"> No hay usuarios registrados en este evento.</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!-- Botón de eliminar evento -->
-            <form action="{% url 'eliminar_evento' evento.pk %}" method="post" class="mt-3">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Eliminar evento</button>
-            </form>
+                    </thead>
+                    <tbody>
+                        {% for usuario in evento.inscritos.all %}
+                            <tr>
+                                <td>{{ usuario.first_name }}</td>
+                                <td>{{ usuario.last_name }}</td>
+                                <td>{{ usuario.email }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3"> No hay usuarios registrados en este evento.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <!-- Botón de eliminar evento -->
+                <form action="{% url 'eliminar_evento' evento.pk %}" method="post" class="mt-3">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar evento</button>
+                </form>
+            {% endif %}
+
+        {% else %}
+            <p class="mt-3">Debes iniciar sesión para inscribirte en este evento.</p>
         {% endif %}
     </div>
 </div>
