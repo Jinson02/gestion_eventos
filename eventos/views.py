@@ -50,7 +50,7 @@ class CrearEventoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     success_url = reverse_lazy('lista_eventos')
 
     def test_func(self):
-        return self.request.user.rol == 'admin'
+        return self.request.user.rol == 'admin' or self.request.user.rol == 'normal'
 
     def form_valid(self, form):
         response = super().form_valid(form)
