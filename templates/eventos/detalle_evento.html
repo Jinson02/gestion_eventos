@@ -9,6 +9,7 @@
             <li class="list-group-item"><strong>Fecha de Inicio:</strong>{{ evento.fecha_de_inicio }}</li>
             <li class="list-group-item"><strong>Fecha Fin:</strong>{{ evento.fecha_fin }}</li>
             <li class="list-group-item"><strong>Ubicación:</strong> {{ evento.ubicación }}</li> <!-- Agregado -->
+            <li class="list-group-item"><strong>Creado por:</strong> {{ evento.creador.get_full_name }}</li> <!-- Mostrar el creador del evento -->
             <li class="list-group-item"><strong>Cupos:</strong>{{ evento.cupos }}</li>
             <li class="list-group-item"><strong>Estado:</strong>{% if evento.estado %}Activo{% else %}Inactivo{% endif %}</li>
         </ul>

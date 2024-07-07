@@ -49,6 +49,10 @@ class CrearEventoView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     template_name = 'eventos/eventos_form.html'
     success_url = reverse_lazy('lista_eventos')
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # Pasar el usuario actual al formulario
+        return kwargs
     def test_func(self):
         return self.request.user.rol == 'admin' or self.request.user.rol == 'normal'
 

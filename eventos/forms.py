@@ -41,3 +41,15 @@ class EventoForm(BootstrapFormMixin, forms.ModelForm):
             'fecha_fin': forms.DateInput(attrs={'type': 'date'}),
             'ubicación': forms.TextInput(attrs={'placeholder': ''}),
         }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)  # Obtener el usuario actual
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if self.user:
+            instance.creador = self.user  # Asignar el usuario actual como el creador del evento
+        if commit:
+            instance.save()
+        return instance

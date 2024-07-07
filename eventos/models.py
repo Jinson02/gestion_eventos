@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
 
@@ -18,6 +18,7 @@ class Evento(models.Model):
     fecha_de_inicio = models.DateField()
     fecha_fin = models.DateField()
     ubicación = models.CharField(max_length=255)
+    creador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     cupos = models.PositiveIntegerField()
     estado = models.BooleanField(default=True)
     inscritos = models.ManyToManyField(Usuario, related_name='eventos_inscritos', blank=True)
