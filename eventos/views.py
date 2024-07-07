@@ -29,17 +29,24 @@ class DetalleEventoView(LoginRequiredMixin, DetailView):
     context_object_name = 'evento'
 
 
-class InscribirEventoView(LoginRequiredMixin, DetailView):
-    model = Evento
+class InscribirEventoView(View):
+    def post(self, request, *args, **kwargs):
+        evento = get_object_or_404(Evento, pk=kwargs['pk'])
+        if request.user.is_authenticated:
+            if request.user not in evento.inscritos.all() and evento.inscritos.count() < evento.cupos:
+                evento.inscritos.add(request.user)
+                messages.success(request, f'Se ha inscrito exitosamente en el evento {evento.nombre}.')
+            else:
+                messages.error(request,
+                               'No se pudo realizar la inscripción. El evento puede estar lleno o ya estás inscrito.')
+        else:
+            messages.error(request, 'Debes iniciar sesión para inscribirte en este evento.')
+
+        return redirect('detalle_evento', pk=evento.pk)
 
     def get(self, request, *args, **kwargs):
-        evento = self.get_object()
-        if request.user not in evento.inscritos.all() and evento.inscritos.count() < evento.cupos:
-            evento.inscritos.add(request.user)
-            messages.success(request, f'Se ha inscrito exitosamente en el evento {evento.nombre}')
-        else:
-            messages.error(request,
-                           'No se pudo realizar la inscripción. El evento puede estar lleno o ya está inscrito ')
+        # No se debería acceder a esta vista por GET, redirigir a detalle_evento
+        evento = get_object_or_404(Evento, pk=kwargs['pk'])
         return redirect('detalle_evento', pk=evento.pk)
 
 
