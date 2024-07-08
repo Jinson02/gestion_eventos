@@ -14,10 +14,10 @@ class Usuario(AbstractUser):
 
 class Evento(models.Model):
     nombre = models.CharField(max_length=150)
-    descripción = models.TextField()
+    descripcion = models.TextField()
     fecha_de_inicio = models.DateField()
     fecha_fin = models.DateField()
-    ubicación = models.CharField(max_length=255)
+    ubicacion = models.CharField(max_length=255)
     creador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     cupos = models.PositiveIntegerField()
     estado = models.BooleanField(default=True)

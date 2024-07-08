@@ -5,13 +5,13 @@
 <div class="card">
     <div class="card-body">
         <h2 class="card-title">{{ evento.nombre }}</h2>
-        <p class="card-text">{{ evento.descripción }}</p>
+        <p class="card-text">{{ evento.descripcion }}</p>
         <ul class="list-group list-group-flush">
             <li class="list-group-item"><strong>Fecha de Inicio:</strong>{{ evento.fecha_de_inicio }}</li>
             <li class="list-group-item"><strong>Fecha Fin:</strong>{{ evento.fecha_fin }}</li>
-            <li class="list-group-item"><strong>Ubicación:</strong> {{ evento.ubicación }}</li>
+            <li class="list-group-item"><strong>Ubicación:</strong> {{ evento.ubicacion }}</li>
             <li class="list-group-item"><strong>Creado por:</strong> {{ evento.creador.get_full_name }}</li>
-            <li class="list-group-item"><strong>Cupos:</strong>{{ evento.cupos }}</li>
+            <li class="list-group-item"><strong>Cupos disponibles:</strong>{{ evento.cupos }}</li>
             <li class="list-group-item"><strong>Estado:</strong>{% if evento.estado %}Activo{% else %}Inactivo{% endif %}</li>
         </ul>
 
