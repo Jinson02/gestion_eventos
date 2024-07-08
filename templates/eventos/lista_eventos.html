@@ -10,7 +10,6 @@
                 <th>Fecha de Inicio</th>
                 <th>Fecha Fin</th>
                 <th>Ubicación</th>
-                <th>Creador</th>
                 <th>Cupos</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -24,7 +23,6 @@
                     <td>{{ evento.fecha_de_inicio }}</td>
                     <td>{{ evento.fecha_fin }}</td>
                     <td>{{ evento.ubicación }}</td>
-                    <td>{{ evento.creador }}</td>
                     <td>{{ evento.cupos }}</td>
                     <td>{% if evento.estado %}Activo{% else %}Inactivo{% endif %}</td>
                     <td><a href="{% url 'detalle_evento' evento.pk %}" class="btn btn-primary btn-sm">Ver detalles</a> </td>

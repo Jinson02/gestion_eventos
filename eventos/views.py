@@ -1,12 +1,14 @@
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, DetailView
-
+from django.shortcuts import render, redirect
 from eventos.forms import RegistroUsuarioForm, EventoForm
 from eventos.models import Evento
 
@@ -126,3 +128,33 @@ class EliminarEventoView(View):
             messages.success(request, 'El evento ha sido eliminado exitosamente.')
             return redirect('lista_eventos')
         return redirect('detalle_evento', pk=pk)
+
+@login_required
+def perfil(request):
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+
+        user = request.user
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+
+        # Manejar cambio de contraseña
+        password_form = PasswordChangeForm(user=user, data=request.POST)
+        if password_form.is_valid():
+            password_form.save()
+            update_session_auth_hash(request, user)  # Mantener la sesión después del cambio de contraseña
+            messages.success(request, 'Perfil y contraseña actualizados con éxito')
+            return redirect('perfil')
+        else:
+            for field, errors in password_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+
+    else:
+        password_form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'registro/perfil.html', {'password_form': password_form})
