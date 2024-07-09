@@ -14,11 +14,11 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'lista_eventos' %}">Bienvenido {{ user.first_name }} {{ user.last_name }}</a> <!-- hacer enlace a lista de eventos -->
+        <a class="navbar-brand" href="{% url 'lista_eventos' %}">Bienvenido {{ user.first_name }} {{ user.last_name }}</a> <!-- lista de eventos -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- hacer lista de opciones según validación del usuario -->
+        <!-- lista de opciones según validación del usuario -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
